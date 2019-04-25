@@ -1,0 +1,38 @@
+version: "2"
+services:
+  db:
+    image: mysql:5.7
+    container_name : wp-bd
+    restart: always
+    expose :
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: bdAdmin
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: userWP
+      MYSQL_PASSWORD: mdpWP
+    volumes:
+      - db_data:/var/lib/mysql
+  
+  wordpress:
+    build: .
+    container_name : wordpress
+    restart: always
+    links :
+      - db
+    ports:
+            - 9400-9450:80
+    volumes:
+      - wp_data:/var/www/html
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: userWP
+      WORDPRESS_DB_PASSWORD: mdpWP
+      WORDPRESS_TABLE_PREFIX: "wp_"
+   
+volumes:
+  db_data: {}
+  wp_data: {}
