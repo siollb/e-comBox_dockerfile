@@ -16,6 +16,7 @@ services:
   
   wordpress:
     build: .
+    image: aporaf/wordpress-avec-wp-cli:latest
     container_name : wordpress
     restart: always
     links :
