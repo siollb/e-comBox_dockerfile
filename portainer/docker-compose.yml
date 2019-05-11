@@ -15,7 +15,7 @@ services:
     restart: always
     container_name: "portainer-app"
 #Automatically choose 'Manage the Docker instance where Portainer is running' by adding <--host=unix:///var/run/docker.sock> to the command
-    command: --admin-password '$$2y$$05$$oIcfHa2LeX1ZU0gOU6eTjuCJwyR4OxnTw3OvRkcMaBDWLPBO1Tpo.'
+    command: --admin-password '$$2y$$05$$oIcfHa2LeX1ZU0gOU6eTjuCJwyR4OxnTw3OvRkcMaBDWLPBO1Tpo.' -H unix:///var/run/docker.sock
     networks:
       - local
     volumes:
@@ -37,5 +37,4 @@ networks:
     driver: bridge
 
 volumes:
-  portainer-docker.sock: {}
   portainer-data: {}

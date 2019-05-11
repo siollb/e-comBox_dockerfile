@@ -1,0 +1,8 @@
+FROM mariadb:latest
+
+# Initialisation de la base de données
+COPY woocommerce_db.sql /docker-entrypoint-initdb.d/
+
+
+
+
