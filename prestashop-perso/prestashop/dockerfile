@@ -1,0 +1,9 @@
+FROM prestashop/prestashop
+
+# Ajout des datas personnalisées
+ADD prestashop-data.tar.gz /var/www/html/
+
+# Permettre le changement d'URL entre 2 lancements de conteneurs et... divers
+RUN rm -rf /var/www/html/install \
+ && sed -ie "s/DirectoryIndex\ index.php\ index.html/DirectoryIndex\ docker_updt_ps_domains.php\ index.php\ index.html/g" /etc/apache2/conf-available/docker-php.conf \
+ && rm -f /var/www/html/prestashop-data.tar.gz

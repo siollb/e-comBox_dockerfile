@@ -1,0 +1,31 @@
+version: '2'
+services:
+  db:
+    build: mariadb/
+    image: aporaf/mariadb-prestashop:latest
+    container_name : prestashop-db-perso
+    restart: always
+    expose :
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: bdAdmin
+    volumes:  
+      - prestashop_data_db:/var/lib/mysql
+      
+  prestashop:
+    build: prestashop/
+    image: aporaf/prestashop-perso:latest
+    container_name : prestashop-perso
+    restart: always
+    links :
+      - db
+    ports:
+      - 9100-9199:80
+    volumes:
+      - prestashop_data:/var/www/html
+    depends_on:
+      - db
+
+volumes:
+  prestashop_data_db: {}
+  prestashop_data: {}
